@@ -79,8 +79,8 @@ const Sideber = ({ className }: { className?: string }) => {
                     <CiSearch size={17} />
                     <input
                         type="text"
-                        className="border-none outline-0 text-white text-xs placeholder-[#c8c8c8] flex-1 capitalize"
                         placeholder="search user..."
+                        className="border-none outline-0 text-white text-xs placeholder-[#c8c8c8] flex-1 capitalize"
                         onChange={(e) => setSearchUser(e.target.value)}
                     />
                 </div>
