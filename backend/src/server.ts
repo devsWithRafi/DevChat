@@ -7,6 +7,7 @@ import { CLIENT_URL, PORT } from './config/ENV.ts';
 import userRoutes from './routes/userRoutes.ts';
 import messageRoutes from './routes/messageRoutes.ts';
 import { initSocket } from './socket/socket.ts';
+import groupMsgRoutes from './routes/groupMsgRoutes.ts';
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/user', userRoutes);
 app.use('/api/message', messageRoutes);
+app.use('/api/group', groupMsgRoutes);
 
 server.listen({ port: +PORT, host: '0.0.0.0' }, () =>
     console.log('Server is running on PORT:', PORT || 4000),

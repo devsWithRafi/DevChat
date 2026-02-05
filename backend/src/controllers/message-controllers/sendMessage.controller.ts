@@ -64,6 +64,7 @@ export const sendMessage = async (req: Request, res: Response) => {
             image: messages.image,
             conversationId: newConversation.id,
         },
+        include: { sender: { omit: { password: true } } },
     });
 
     if (!newMessage) {
@@ -71,8 +72,8 @@ export const sendMessage = async (req: Request, res: Response) => {
     }
 
     // socket io room
-    const roomId = getPrivateRoomId(currentUser.id, receiverId)
-    io.to(roomId).emit("newMessage", newMessage)
+    const roomId = getPrivateRoomId(currentUser.id, receiverId);
+    io.to(roomId).emit('newMessage', newMessage);
 
     return res.json(newMessage);
 };

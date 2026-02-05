@@ -16,7 +16,10 @@ export interface MessageType {
     senderId: string;
     image: string | null;
     text: string | null;
+    groupId?: string;
     createdAt: string | Date;
+    sender?: UserType;
+    receiver?: UserType;
 }
 
 export interface ConversationType {
@@ -26,4 +29,17 @@ export interface ConversationType {
     messages: MessageType[];
     sender?: UserType;
     receiver?: UserType;
+}
+
+export interface GroupType {
+    id: string;
+    groupsAvater: string | null;
+    groupsAvater_public_id: string | null;
+    name: string;
+    bio: string | null;
+    createdAt: string | Date;
+    groupAdminId: string;
+    admin: UserType;
+    members: UserType[];
+    messages: MessageType[];
 }

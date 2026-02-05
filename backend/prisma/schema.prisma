@@ -23,22 +23,28 @@ model User {
 
   sentConversations     Conversation[] @relation("SenderConversations")
   receivedConversations Conversation[] @relation("ReceiverConversations")
+
+  adminOfGroups   Group[] @relation("GroupAdmin")
+  membersOfGroups Group[] @relation("GroupMembers")
 }
 
 model Message {
-  id         String   @id @default(cuid())
+  id         String  @id @default(cuid())
   senderId   String
-  receiverId String
+  receiverId String?
   text       String?
   image      String?
-  isSeen     Boolean  @default(false)
-  createdAt  DateTime @default(now())
 
   conversation   Conversation? @relation(fields: [conversationId], references: [id])
   conversationId String?
 
-  sender   User @relation("SentMessage", fields: [senderId], references: [id])
-  receiver User @relation("ReceiveMessage", fields: [receiverId], references: [id])
+  sender   User  @relation("SentMessage", fields: [senderId], references: [id])
+  receiver User? @relation("ReceiveMessage", fields: [receiverId], references: [id])
+
+  group   Group?  @relation(fields: [groupId], references: [id])
+  groupId String?
+
+  createdAt DateTime @default(now())
 }
 
 model Conversation {
@@ -50,4 +56,20 @@ model Conversation {
   receiver User @relation("ReceiverConversations", fields: [receiverId], references: [id])
 
   messages Message[]
+}
+
+model Group {
+  id                     String  @id @default(cuid())
+  groupsAvater           String?
+  groupsAvater_public_id String?
+  name                   String
+  bio                    String?
+  // Group Admin
+  groupAdminId           String?
+  admin                  User?   @relation("GroupAdmin", fields: [groupAdminId], references: [id])
+  // Group Members
+  members                User[]  @relation("GroupMembers")
+
+  messages  Message[]
+  createdAt DateTime  @default(now())
 }
