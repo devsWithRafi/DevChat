@@ -9,7 +9,7 @@ export const authMiddleware = async (
     try {
         const token = req.cookies.token;
         if (!token) {
-            return res.status(401).json({ error: 'UnAuthorized' });
+            return res.status(401).json({ error: 'Unauthorized' });
         }
 
         const decoded = await VerifyJwtToken(token);

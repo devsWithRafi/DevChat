@@ -27,7 +27,7 @@ const LoginForm = () => {
                     [e.target.name]: e.target.value,
                 })),
             className:
-                'border border-white/20 rounded-lg font-normal focus:border-white/50 duration-300 text-sm outline-0 h-11 w-full px-5',
+                  'border border-white/20 rounded-lg font-normal focus:border-white/50 duration-300 text-sm outline-0 min-h-11 max-[540px]:min-h-9 max-[540px]:rounded-sm max-[540px]:px-3.5 max-[540px]:text-xs w-full px-5',
         };
     };
 
@@ -47,7 +47,7 @@ const LoginForm = () => {
         <form
             onSubmit={handleSubmit}
             className={cn(
-                'flex flex-col items-center justify-center w-full p-10 gap-5',
+                'flex flex-col items-center justify-center w-full max-[540px]:h-full p-10 max-[540px]:p-5 gap-5 max-[540px]:gap-2',
                 loading && 'pointer-events-none opacity-[0.5] select-none',
             )}
         >
@@ -84,7 +84,7 @@ const LoginForm = () => {
             {/* SUBMIT BUTTON */}
             <button
                 type="submit"
-                className="bg-white text-black font-medium mt-5 w-full rounded-lg h-11 cursor-pointer flex items-center justify-center gap-2 text-md"
+                className="bg-white text-black font-medium mt-5 w-full rounded-lg min-h-11 cursor-pointer flex items-center justify-center max-[540px]:min-h-9 max-[540px]:rounded-sm gap-2 text-md"
             >
                 {!loading && (
                     <>

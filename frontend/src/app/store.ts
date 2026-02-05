@@ -3,6 +3,7 @@ import currentUserReducer from '../features/currentUserSlice';
 import allUsersReducer from '../features/allUsersSlice';
 import conversationReducer from '../features/conversationSlice';
 import addOnlineUsersReducer from '../features/onlineUserSlice';
+import groupReducer from '../features/groupSlice';
 
 const store = configureStore({
     reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
         allUsers: allUsersReducer,
         conversations: conversationReducer,
         onlineUsers: addOnlineUsersReducer,
+        groups: groupReducer,
     },
 });
 

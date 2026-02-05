@@ -3,6 +3,7 @@ import http from 'http';
 import { CLIENT_URL } from '../config/ENV.ts';
 import getPrivateRoomId from '../helper/getPrivateRoomId.ts';
 import { prisma } from '../lib/prisma.ts';
+import { JoinSocketGroup } from './joinGroup.ts';
 
 export const initSocket = (server: http.Server) => {
     const io = new Server(server, {
@@ -12,6 +13,7 @@ export const initSocket = (server: http.Server) => {
             credentials: true,
         },
     });
+
 
     const userSocketMap: { [key: string]: string } = {};
 
@@ -25,6 +27,13 @@ export const initSocket = (server: http.Server) => {
         }
         // GET ONLINE USERS
         io.emit('getOnlineUsers', Object.keys(userSocketMap));
+
+        // ADD USER TO GROUP room
+        socket.on('join-group', async (groupId) => {
+            await JoinSocketGroup(socket, authUserId, groupId);
+        });
+
+        socket.on("leave-group", (groupId) => socket.leave(groupId))
 
         // ADD USER TO PRIVATE 1-TO-1 room
         socket.on('join-private-room', ({ senderId, receiverId }) => {

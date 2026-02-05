@@ -13,7 +13,11 @@ export const getConversations = async (req: Request, res: Response) => {
             ],
         },
         include: {
-            messages: true,
+            messages: {
+                include: {
+                    sender: { omit: { password: true } },
+                },
+            },
             sender: { omit: { password: true } },
             receiver: { omit: { password: true } },
         },

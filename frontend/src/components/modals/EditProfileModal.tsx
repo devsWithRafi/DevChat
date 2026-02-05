@@ -40,15 +40,15 @@ const EditProfileModal = ({ setOnEditClick }: EditProfileModalProps) => {
 
     return (
         <Portal onClose={setOnEditClick}>
-            <section className="w-200 bg-white/15 border border-white/15 p-7 rounded-xl flex flex-col shadow-2xl">
+            <section className="w-200 bg-white/15 border border-white/15 p-7 rounded-xl flex flex-col shadow-2xl max-[825px]:w-[95vw]">
                 <p className='font-space text-gray-300'>Edit profile details</p>
-                <div className='flex gap-7 w-full mt-5 items-start'>
-                    <div className="min-w-55 max-w-55 aspect-square overflow-hidden relative cursor-pointer group">
+                <div className='flex gap-7 w-full mt-5 items-start max-[825px]:flex-col max-[825px]:items-center'>
+                    <div className="min-w-55 max-w-55 max-[500px]:w-full max-[500px]:min-w-full aspect-square overflow-hidden relative cursor-pointer group">
                         <img
                             src={(avaterImagePreview || currentUser.avater || defaultAvater)}
                             className="w-full h-full aspect-square"
                         />
-                        <label htmlFor="avaterFile" className='absolute opacity-0 group-hover:opacity-100 duration-300 bg-black/20 flex items-center justify-center text-[25px] cursor-pointer text-white top-0 left-0 right-0 bottom-0 h-full w-full'>
+                        <label htmlFor="avaterFile" className='absolute duration-300 bg-black/20 flex items-center justify-center text-[25px] cursor-pointer text-white top-0 left-0 right-0 bottom-0 h-full w-full'>
                               <MdOutlineCameraAlt/>
                         </label>
                         <input type="file" accept='image/*' onChange={(e) => setAvaterFile(e.target.files && e.target.files[0])} id='avaterFile' className='hidden'/>

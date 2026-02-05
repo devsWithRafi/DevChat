@@ -4,9 +4,9 @@ import SignUpForm from '../components/forms/SignUpForm';
 
 const SignupPage = () => {
     return (
-        <section className="bg-black/5 w-[60%] max-h-[80vh] h-[80vh] gap-5 rounded-2xl overflow-hidden backdrop-blur-[30px] z-1 border border-white/10 flex p-5">
+       <section className="bg-black/5 w-280 max-[1145px]:w-[90vw] max-h-[80vh] h-[80vh] gap-5 rounded-2xl overflow-hidden backdrop-blur-[30px] z-1 border border-white/10 flex p-5 max-[540px]:w-[95%]">
             {/* LEFT SIDE */}
-            <div className="relative min-w-[45%] max-w-[45%] overflow-hidden">
+            <div className="relative min-w-[45%] max-w-[45%] overflow-hidden max-[865px]:hidden">
                 <img
                     src={Logo}
                     alt=""

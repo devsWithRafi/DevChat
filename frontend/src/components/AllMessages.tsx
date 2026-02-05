@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { addNewMessagesIntoConversation } from '../features/conversationSlice';
 
 const AllMessages = () => {
-    const { loading, error, conversations } = useConversations();
+    const { loading, conversations } = useConversations();
     const dispatch = useDispatch()
     const socket = useSocket();
 
@@ -23,8 +23,8 @@ const AllMessages = () => {
     }, [socket]);
 
     return (
-        <div className="overflow-y-auto h-[82%] flex flex-col gap-2 py-5">
-            {conversations?.messages?.length ? (
+        <div className="overflow-y-auto h-[82%] max-[767px]:h-[calc(100%-80px)] flex flex-col gap-2 py-5">
+            {!loading && conversations?.messages?.length ? (
                 conversations.messages.map((msg) => (
                     <MessageBox
                         key={msg.id}

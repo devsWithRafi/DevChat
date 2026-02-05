@@ -39,12 +39,17 @@ const ChatBox = () => {
     };
 
     return (
-        <section className="w-full px-8 p-2 relative">
+        <section
+            className={cn(
+                'w-full px-8 p-2 relative h-full',
+                `max-[767px]:${!selectedUserId ? 'hidden' : ''}`,
+            )}
+        >
             {/* HEADER */}
-            <Navber />
+            <Navber navType="chat" />
             {/* MESSAGE BOX */}
             <AllMessages />
-            <section className="absolute bottom-0 left-0 right-0 p-5 flex flex-col gap-3">
+            <section className="absolute bottom-0 left-0 right-0 p-5 max-[767px]:p-2 flex flex-col gap-3">
                 <section
                     className={cn(
                         'w-full flex items-center justify-between gap-3',
@@ -54,16 +59,16 @@ const ChatBox = () => {
                     {/* text message */}
                     <div
                         className={cn(
-                            'flex flex-col gap-5 w-full items-center bg-white/10 rounded-full h-12 px-6 justify-center',
+                            'flex flex-col gap-5 w-full items-center bg-white/10 rounded-full h-12 px-6 justify-center max-[767px]:px-4.5 max-[767px]:h-9',
                             imageFile &&
-                                'rounded-[20px] justify-start h-auto p-6 items-start',
+                                'rounded-[20px] max-[767px]:rounded-[10px] justify-start h-auto p-6 max-[767px]:p-4.5 items-start max-[767px]:h-auto',
                         )}
                     >
                         {imageFile && (
                             <div className="flex gap-4 relative">
                                 <img
                                     src={URL.createObjectURL(imageFile)}
-                                    className="w-50"
+                                    className="w-50 max-[767px]:w-30"
                                 />
                                 <button
                                     onClick={() => setImageFile(null)}
@@ -74,19 +79,19 @@ const ChatBox = () => {
                                 </button>
                             </div>
                         )}
-                        <div className="relative w-full flex items-center justify-between gap-5">
+                        <div className="relative w-full flex items-center justify-between gap-5 max-[767px]:gap-2">
                             <input
                                 type="text"
                                 placeholder="Send a message"
                                 value={textMsg}
                                 onChange={(e) => setTextMsg(e.target.value)}
-                                className="text-sm w-full h-full outline-0 border-0"
+                                className="text-sm w-full h-full outline-0 border-0 max-[767px]:text-[12px]"
                             />
                             <label
                                 htmlFor="imageFileInput"
                                 className="cursor-pointer text-zinc-400"
                             >
-                                <LuImage size={20} />
+                                <LuImage className="text-[20px] max-[767px]:text-[15px]" />
                             </label>
                         </div>
                     </div>
@@ -105,7 +110,7 @@ const ChatBox = () => {
                         type="button"
                         onClick={handleSend}
                         className={cn(
-                            'min-w-11 h-11 cursor-pointer rounded-full flex items-center justify-center bg-gradient-to-r from-violet-500 to-purple-500',
+                            'min-w-11 h-11 cursor-pointer rounded-full flex items-center justify-center bg-gradient-to-r from-violet-500 to-purple-500 max-[767px]:min-w-8 max-[767px]:h-8',
                             sendButtonDesabled &&
                                 'bg-white/20 pointer-events-none select-none opacity-[0.7]',
                             loading &&
@@ -113,7 +118,7 @@ const ChatBox = () => {
                         )}
                     >
                         {!loading ? (
-                            <RiSendPlaneLine size={22} />
+                            <RiSendPlaneLine className='text-[22px] max-[767px]:text-[15px]' />
                         ) : (
                             <Spinner className="border-2 border-zinc-400 border-t-white" />
                         )}
