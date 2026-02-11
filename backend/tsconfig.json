@@ -7,7 +7,7 @@
 
         // Environment Settings
         // See also https://aka.ms/tsconfig/module
-        "module": "NodeNext",
+        "module": "nodenext",
         "target": "ES2022",
         "types": ["node"],
         "typeRoots": ["./node_modules/@types", "./src/types"],
@@ -16,7 +16,7 @@
         // "types": ["node"],
         // and npm install -D @types/node
 
-        "moduleResolution": "NodeNext",
+        "moduleResolution": "nodenext",
 
         // Other Outputs
         "sourceMap": true,
@@ -49,5 +49,5 @@
         "noEmit": false
     },
     "include": ["src/**/*.ts"],
-    "exclude": ["node_modules", "prisma", "**/*.test.ts"]
+    "exclude": ["node_modules", "prisma", "**/*.test.ts", "prisma.config.ts"]
 }
