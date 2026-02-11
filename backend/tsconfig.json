@@ -7,16 +7,16 @@
 
         // Environment Settings
         // See also https://aka.ms/tsconfig/module
-        "module": "ESNext",
-        "target": "ES2023",
-        "types": [],
+        "module": "NodeNext",
+        "target": "ES2022",
+        "types": ["node"],
+        "typeRoots": ["./node_modules/@types", "./src/types"],
         // For nodejs:
         // "lib": ["esnext"],
         // "types": ["node"],
         // and npm install -D @types/node
 
-        "moduleResolution": "bundler",
-        "ignoreDeprecations": "6.0",
+        "moduleResolution": "NodeNext",
 
         // Other Outputs
         "sourceMap": true,
@@ -45,9 +45,9 @@
         "skipLibCheck": true,
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
-        "allowImportingTsExtensions": true,
-        "noEmit": true
+        "allowImportingTsExtensions": false,
+        "noEmit": false
     },
     "include": ["src/**/*.ts"],
-    "exclude": ["node_modules"]
+    "exclude": ["node_modules", "prisma", "**/*.test.ts"]
 }

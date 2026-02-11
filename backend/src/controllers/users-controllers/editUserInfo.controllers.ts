@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
-import { uploadImageToCloudinary } from '../../helper/uploadImageToCloudinary.ts';
-import { prisma } from '../../lib/prisma.ts';
+import { uploadImageToCloudinary } from '../../helper/uploadImageToCloudinary.js';
+import { prisma } from '../../lib/prisma.js';
 
 export const editUserInfo = async (req: Request, res: Response) => {
     const authUser = req.user;
@@ -11,6 +11,10 @@ export const editUserInfo = async (req: Request, res: Response) => {
         return res
             .status(400)
             .json({ error: 'All profile info feilds are required!' });
+    }
+
+    if (!authUser) {
+        return res.status(401).json({ error: 'Unauthorized!' });
     }
 
     const updatedData: { [key: string]: string } = { name, bio };

@@ -1,5 +1,5 @@
 import type { Socket } from 'socket.io';
-import { prisma } from '../lib/prisma.ts';
+import { prisma } from '../lib/prisma.js';
 
 export const JoinSocketGroup = async (
     socket: Socket,

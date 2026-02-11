@@ -1,17 +1,20 @@
 import type { Request, Response } from 'express';
-import { prisma } from '../../lib/prisma.ts';
-import { uploadImageToCloudinary } from '../../helper/uploadImageToCloudinary.ts';
+import { prisma } from '../../lib/prisma.js';
+import { uploadImageToCloudinary } from '../../helper/uploadImageToCloudinary.js';
 
 export const updateGroup = async (req: Request, res: Response) => {
     const groupId = req.params.groupId as string;
     const { name, membersIds, bio } = req.body || {};
     const groupAvaterFile = req.file;
     const currentUser = req.user;
-    
+
     if (!name || !membersIds || membersIds.length < 2) {
         return res.status(400).json({ error: 'Invalid group data' });
     }
 
+    if (!currentUser) {
+        return res.status(401).json({ error: 'Unauthorized!' });
+    }
 
     const validateMembers = await prisma.user.findMany({
         where: {
@@ -27,7 +30,7 @@ export const updateGroup = async (req: Request, res: Response) => {
         return res.status(404).json({ error: 'Group not found!' });
     }
 
-    if (!isGroupExist.groupAdminId === currentUser.id) {
+    if (isGroupExist.groupAdminId !== currentUser.id) {
         return res.status(400).json({ error: 'Access denied!' });
     }
 

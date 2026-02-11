@@ -1,8 +1,8 @@
 import type { Request, Response } from 'express';
-import { prisma } from '../../lib/prisma.ts';
-import { uploadImageToCloudinary } from '../../helper/uploadImageToCloudinary.ts';
-import getPrivateRoomId from '../../helper/getPrivateRoomId.ts';
-import { io } from '../../server.ts';
+import { prisma } from '../../lib/prisma.js';
+import { uploadImageToCloudinary } from '../../helper/uploadImageToCloudinary.js';
+import getPrivateRoomId from '../../helper/getPrivateRoomId.js';
+import { io } from '../../server.js';
 
 export const sendMessage = async (req: Request, res: Response) => {
     const receiverId = req.params.id as string;
@@ -12,6 +12,10 @@ export const sendMessage = async (req: Request, res: Response) => {
 
     if (!text && !imageFile) {
         return res.status(400).json({ error: 'Message cannot be empty!' });
+    }
+
+    if (!currentUser) {
+        return res.status(401).json({ error: 'Unauthorized!' });
     }
 
     if (!receiverId) {

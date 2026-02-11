@@ -1,9 +1,13 @@
 import type { Request, Response } from 'express';
-import { prisma } from '../../lib/prisma.ts';
+import { prisma } from '../../lib/prisma.js';
 
 export const deleteGroup = async (req: Request, res: Response) => {
     const groupId = req.params.groupId as string;
     const currentUser = req.user;
+
+    if (!currentUser) {
+        return res.status(401).json({ error: 'Unauthorized!' });
+    }
 
     const isGroupExist = await prisma.group.findUnique({
         where: { id: groupId },
@@ -13,7 +17,7 @@ export const deleteGroup = async (req: Request, res: Response) => {
         return res.status(404).json({ error: 'Group not found!' });
     }
 
-    if (!isGroupExist.groupAdminId === currentUser.id) {
+    if (isGroupExist.groupAdminId !== currentUser.id) {
         return res.status(400).json({ error: 'Access denied!' });
     }
 

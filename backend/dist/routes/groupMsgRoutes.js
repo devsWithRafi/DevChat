@@ -1,0 +1,22 @@
+import { Router } from 'express';
+import { authMiddleware } from '../middleware/authMiddleware.js';
+import { upload } from '../helper/multer.js';
+import { createGroup } from '../controllers/groupChat-controllers/createGroup.controllers.js';
+import { sendGroupMessage } from '../controllers/groupChat-controllers/sendGroupMessage.js';
+import { getGroup } from '../controllers/groupChat-controllers/getGroup.controllers.js';
+import { getGroupsMedia } from '../controllers/groupChat-controllers/getGroupsMedia.js';
+import { addMemberToGroup } from '../controllers/groupChat-controllers/addMember.controllers.js';
+import { leaveGroup } from '../controllers/groupChat-controllers/leaveGroup.controllers.js';
+import { updateGroup } from '../controllers/groupChat-controllers/updateGroup.controllers.js';
+import { deleteGroup } from '../controllers/groupChat-controllers/deleteGroup.controllers.js';
+const groupMsgRoutes = Router();
+groupMsgRoutes.post('/create-new-group', upload.single('groupAvaterFile'), authMiddleware, createGroup);
+groupMsgRoutes.post('/send-group-message/:groupId', upload.single('imageFile'), authMiddleware, sendGroupMessage);
+groupMsgRoutes.get('/get-groups', authMiddleware, getGroup);
+groupMsgRoutes.get('/get-groups-media/:groupId', authMiddleware, getGroupsMedia);
+groupMsgRoutes.put('/add-new-member/:groupId', authMiddleware, addMemberToGroup);
+groupMsgRoutes.put('/remove-member/:groupId', authMiddleware, leaveGroup);
+groupMsgRoutes.put('/update-group/:groupId', upload.single('groupAvaterFile'), authMiddleware, updateGroup);
+groupMsgRoutes.delete('/delete-group/:groupId', authMiddleware, deleteGroup);
+export default groupMsgRoutes;
+//# sourceMappingURL=groupMsgRoutes.js.map

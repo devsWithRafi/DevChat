@@ -4,7 +4,7 @@ import type { Request, Response } from 'express';
 export const logOutUser = async (req: Request, res: Response) => {
     res.clearCookie('token', {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'development',
+        secure: process.env.NODE_ENV === 'production',
         sameSite: 'strict',
         path: '/',
     });

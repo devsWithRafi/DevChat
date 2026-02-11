@@ -1,9 +1,13 @@
 import type { Request, Response } from 'express';
-import { prisma } from '../../lib/prisma.ts';
+import { prisma } from '../../lib/prisma.js';
 
 export const getConversations = async (req: Request, res: Response) => {
     const currentUser = req.user;
     const othersId = req.params.othersId as string;
+
+    if (!currentUser) {
+        return res.status(401).json({ error: 'Unauthorized!' });
+    }
 
     const conversation = await prisma.conversation.findFirst({
         where: {

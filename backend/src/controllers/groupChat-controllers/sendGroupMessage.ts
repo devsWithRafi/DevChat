@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
-import { prisma } from '../../lib/prisma.ts';
-import { uploadImageToCloudinary } from '../../helper/uploadImageToCloudinary.ts';
-import { io } from '../../server.ts';
+import { prisma } from '../../lib/prisma.js';
+import { uploadImageToCloudinary } from '../../helper/uploadImageToCloudinary.js';
+import { io } from '../../server.js';
 
 export const sendGroupMessage = async (req: Request, res: Response) => {
     const groupId = req.params.groupId as string;
@@ -13,6 +13,10 @@ export const sendGroupMessage = async (req: Request, res: Response) => {
         return res
             .status(400)
             .json({ error: 'Group Message cannot be empty!' });
+    }
+
+    if (!currentUser) {
+        return res.status(401).json({ error: 'Unauthorized!' });
     }
 
     if (!groupId) {

@@ -1,8 +1,12 @@
 import type { Request, Response } from 'express';
-import { prisma } from '../../lib/prisma.ts';
+import { prisma } from '../../lib/prisma.js';
 
 export const getCurrentUser = async (req: Request, res: Response) => {
     const currentUser = req.user;
+
+    if (!currentUser) {
+        return res.status(401).json({ error: 'Unauthorized!' });
+    }
 
     const users = await prisma.user.findUnique({
         where: { id: currentUser.id },
@@ -10,7 +14,7 @@ export const getCurrentUser = async (req: Request, res: Response) => {
     });
 
     if (!users) {
-       return res.status(500).json({ error: 'An error occoured!' });
+        return res.status(500).json({ error: 'An error occoured!' });
     }
 
     return res.json(users);

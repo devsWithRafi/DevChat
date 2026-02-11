@@ -1,14 +1,14 @@
 import { Router } from 'express';
-import { authMiddleware } from '../middleware/authMiddleware.ts';
-import { upload } from '../helper/multer.ts';
-import { createGroup } from '../controllers/groupChat-controllers/createGroup.controllers.ts';
-import { sendGroupMessage } from '../controllers/groupChat-controllers/sendGroupMessage.ts';
-import { getGroup } from '../controllers/groupChat-controllers/getGroup.controllers.ts';
-import { getGroupsMedia } from '../controllers/groupChat-controllers/getGroupsMedia.ts';
-import { addMemberToGroup } from '../controllers/groupChat-controllers/addMember.controllers.ts';
-import { leaveGroup } from '../controllers/groupChat-controllers/leaveGroup.controllers.ts';
-import { updateGroup } from '../controllers/groupChat-controllers/updateGroup.controllers.ts';
-import { deleteGroup } from '../controllers/groupChat-controllers/deleteGroup.controllers.ts';
+import { authMiddleware } from '../middleware/authMiddleware.js';
+import { upload } from '../helper/multer.js';
+import { createGroup } from '../controllers/groupChat-controllers/createGroup.controllers.js';
+import { sendGroupMessage } from '../controllers/groupChat-controllers/sendGroupMessage.js';
+import { getGroup } from '../controllers/groupChat-controllers/getGroup.controllers.js';
+import { getGroupsMedia } from '../controllers/groupChat-controllers/getGroupsMedia.js';
+import { addMemberToGroup } from '../controllers/groupChat-controllers/addMember.controllers.js';
+import { leaveGroup } from '../controllers/groupChat-controllers/leaveGroup.controllers.js';
+import { updateGroup } from '../controllers/groupChat-controllers/updateGroup.controllers.js';
+import { deleteGroup } from '../controllers/groupChat-controllers/deleteGroup.controllers.js';
 
 const groupMsgRoutes = Router();
 

@@ -1,11 +1,11 @@
 import { Router } from 'express';
-import { authMiddleware } from '../middleware/authMiddleware.ts';
+import { authMiddleware } from '../middleware/authMiddleware.js';
 
-import { upload } from '../helper/multer.ts';
-import { sendMessage } from '../controllers/message-controllers/sendMessage.controller.ts';
-import { deleteMessage } from '../controllers/message-controllers/deleteMessage.controller.ts';
-import { getConversations } from '../controllers/message-controllers/getConversation.controller.ts';
-import { getUserMedia } from '../controllers/message-controllers/getUserMedia.controllers.ts';
+import { upload } from '../helper/multer.js';
+import { sendMessage } from '../controllers/message-controllers/sendMessage.controller.js';
+import { deleteMessage } from '../controllers/message-controllers/deleteMessage.controller.js';
+import { getConversations } from '../controllers/message-controllers/getConversation.controller.js';
+import { getUserMedia } from '../controllers/message-controllers/getUserMedia.controllers.js';
 
 const messageRoutes = Router();
 

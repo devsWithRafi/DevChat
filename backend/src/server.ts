@@ -3,11 +3,11 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import { createServer } from 'http';
-import { CLIENT_URL, PORT } from './config/ENV.ts';
-import userRoutes from './routes/userRoutes.ts';
-import messageRoutes from './routes/messageRoutes.ts';
-import { initSocket } from './socket/socket.ts';
-import groupMsgRoutes from './routes/groupMsgRoutes.ts';
+import { CLIENT_URL, PORT } from './config/ENV.js';
+import userRoutes from './routes/userRoutes.js';
+import messageRoutes from './routes/messageRoutes.js';
+import { initSocket } from './socket/socket.js';
+import groupMsgRoutes from './routes/groupMsgRoutes.js';
 
 dotenv.config();
 

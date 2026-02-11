@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-import { prisma } from '../../lib/prisma.ts';
+import { prisma } from '../../lib/prisma.js';
 
 export const getGroupsMedia = async (req: Request, res: Response) => {
     const groupId = req.params.groupId as string;

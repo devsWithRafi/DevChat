@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
-import { prisma } from '../../lib/prisma.ts';
-import { ComparePassword } from '../../helper/BcryptHelper.ts';
-import { GenarateJwtToken } from '../../helper/JwtHelper.ts';
+import { prisma } from '../../lib/prisma.js';
+import { ComparePassword } from '../../helper/BcryptHelper.js';
+import { GenarateJwtToken } from '../../helper/JwtHelper.js';
 
 
 // SIGN IN USER

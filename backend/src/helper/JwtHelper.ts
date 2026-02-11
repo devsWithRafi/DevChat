@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { JWT_SECRET } from '../config/ENV.ts';
+import { JWT_SECRET } from '../config/ENV.js';
 
 interface GenarateTokenType {
     id: string;

@@ -1,0 +1,18 @@
+import { prisma } from '../../lib/prisma.js';
+export const deleteMessage = async (req, res) => {
+    const msgId = req.params.msgId;
+    if (!msgId) {
+        return res
+            .status(400)
+            .json({ error: 'Message id is required for deleting message' });
+    }
+    const message = await prisma.message.findUnique({ where: { id: msgId } });
+    if (!message) {
+        return res
+            .status(404)
+            .json({ error: 'Sorry no message found on this message id' });
+    }
+    await prisma.message.delete({ where: { id: message.id } });
+    return res.status(200).json({ success: 'Message delete successful!' });
+};
+//# sourceMappingURL=deleteMessage.controller.js.map

@@ -1,5 +1,6 @@
 import type { NextFunction, Request, Response } from 'express';
-import { VerifyJwtToken } from '../helper/JwtHelper.ts';
+import { VerifyJwtToken } from '../helper/JwtHelper.js';
+import type { AuthUserType } from '../types/AuthUser.js';
 
 export const authMiddleware = async (
     req: Request,
@@ -13,10 +14,10 @@ export const authMiddleware = async (
         }
 
         const decoded = await VerifyJwtToken(token);
-        req.user = decoded;
+        req.user = decoded as AuthUserType;
         next();
     } catch (error) {
         console.error('Auth error:', error);
-        return res.status(401).json({ error: "Invalid or expired token" });
+        return res.status(401).json({ error: 'Invalid or expired token' });
     }
 };

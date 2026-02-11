@@ -1,9 +1,8 @@
 import { Server } from 'socket.io';
 import http from 'http';
-import { CLIENT_URL } from '../config/ENV.ts';
-import getPrivateRoomId from '../helper/getPrivateRoomId.ts';
-import { prisma } from '../lib/prisma.ts';
-import { JoinSocketGroup } from './joinGroup.ts';
+import { CLIENT_URL } from '../config/ENV.js';
+import getPrivateRoomId from '../helper/getPrivateRoomId.js';
+import { JoinSocketGroup } from './joinGroup.js';
 
 export const initSocket = (server: http.Server) => {
     const io = new Server(server, {
