@@ -6,7 +6,7 @@ const onlineUserSlice = createSlice({
     name: 'onlineUsers',
     initialState,
     reducers: {
-        addOnlineUsers: (state, action: PayloadAction<string[]>) => {
+        addOnlineUsers: (_state, action: PayloadAction<string[]>) => {
             return action.payload;
         },
     },

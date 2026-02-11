@@ -1,4 +1,4 @@
-import { useEffect, useState, type Dispatch, type SetStateAction } from 'react';
+import { useState, type Dispatch, type SetStateAction } from 'react';
 import Portal from '../Portal';
 import useFetchUsers from '../../hooks/useFetchUsers';
 import defaultGroupAvater from '../../assets/default-avater/default-group-avater.png';

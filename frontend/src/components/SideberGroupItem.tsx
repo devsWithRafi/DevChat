@@ -5,7 +5,6 @@ import { BiDotsVertical } from 'react-icons/bi';
 import defaultGroupAvater from '../assets/default-avater/default-group-avater.png';
 import useCurrentUser from '../hooks/useCurrentUser';
 import { useState } from 'react';
-import Portal from './Portal';
 import UpdateGroupModal from './modals/UpdateGroupModal';
 
 interface SideberItemProps {
