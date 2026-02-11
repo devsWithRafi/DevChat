@@ -27,7 +27,7 @@ const LoginForm = () => {
                     [e.target.name]: e.target.value,
                 })),
             className:
-                  'border border-white/20 rounded-lg font-normal focus:border-white/50 duration-300 text-sm outline-0 min-h-11 max-[540px]:min-h-9 max-[540px]:rounded-sm max-[540px]:px-3.5 max-[540px]:text-xs w-full px-5',
+                'border border-white/20 rounded-lg font-normal focus:border-white/50 duration-300 text-sm outline-0 min-h-11 max-[540px]:min-h-9 max-[540px]:rounded-sm max-[540px]:px-3.5 max-[540px]:text-xs w-full px-5',
         };
     };
 
@@ -38,7 +38,7 @@ const LoginForm = () => {
             toast.success('Login successful!');
             navigate('/');
         } else {
-            toast.error(error || "Login failed!");
+            toast.error(error || 'Login failed!');
             return;
         }
     };

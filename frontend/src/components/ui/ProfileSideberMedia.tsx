@@ -117,7 +117,7 @@ const ProfileSideberMedia = ({ data, loading }: ProfileSideberTopProps) => {
                                 <div className="w-8 aspect-square rounded-full overflow-hidden">
                                     <img
                                         src={user.avater || defaultAvater}
-                                        className="w-full"
+                                        className="w-full h-full"
                                     />
                                 </div>
                                 <div className="flex flex-col">

@@ -50,16 +50,18 @@ const AllGroupMessages = () => {
     }, [socket, groupId,currentUser?.id]);
 
     return (
-        <div className="overflow-y-auto h-[82%] max-[767px]:h-[calc(100%-80px)] flex flex-col gap-2 py-5">
-            {!grpLoading && groupMessages?.length ? (
-                groupMessages.map((msg) => (
-                    <MessageBox key={msg.id} message={msg} />
-                ))
-            ) : (
-                <div className="w-full h-full flex items-center justify-center">
-                    Sart your first message
-                </div>
-            )}
+        <div className="overflow-y-auto h-[82%] max-[767px]:h-[calc(100%-80px)] flex flex-col py-5">
+            {!grpLoading && <>        
+                {groupMessages?.length ? (
+                    groupMessages.map((msg) => (
+                        <MessageBox key={msg.id} message={msg} />
+                    ))
+                ) : (
+                    <div className="w-full h-full flex items-center justify-center">
+                        Sart your first message
+                    </div>
+                )}
+            </>}
 
             {grpLoading &&
                 [...Array(3)].map((_, index) => (

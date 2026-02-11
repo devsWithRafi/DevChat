@@ -22,7 +22,7 @@ const SideberUserItem = ({ user, selectedUserId, onlineUsers }: SideberItemProps
             <div className="w-9 h-9 rounded-full bg-zinc-800 relative">
                 <img
                     src={user.avater || defaultAvater}
-                    className="w-full rounded-full"
+                    className="w-full min-h-full rounded-full"
                 />
                 {onlineUsers.includes(user.id) && (
                     <span className="bg-green-400 w-2.5 h-2.5 border-[2px] border-black rounded-full absolute bottom-1 -right-0.5" />

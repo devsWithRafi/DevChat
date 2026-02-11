@@ -31,7 +31,7 @@ const SideberGroupItem = ({ group, selectedGroupId }: SideberItemProps) => {
                     <div className="w-9 h-9 rounded-full overflow-hidden bg-zinc-800 relative">
                         <img
                             src={group.groupsAvater || defaultGroupAvater}
-                            className="w-full rounded-full"
+                            className="w-full min-h-full rounded-full"
                         />
                     </div>
                     <div className="capitalize">

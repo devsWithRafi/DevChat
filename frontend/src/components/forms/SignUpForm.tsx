@@ -44,7 +44,7 @@ const SignUpForm = () => {
 
         if (success) {
             toast.success('Sign Up Successful!');
-            navigate('/');
+            navigate('/login');
         } else {
             toast.error(error || 'SignUp failed!');
             return;

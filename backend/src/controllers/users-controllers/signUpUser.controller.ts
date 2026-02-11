@@ -38,11 +38,11 @@ export const signUpUser = async (req: Request, res: Response) => {
         res.cookie('token', token, {
             maxAge: 7 * 24 * 60 * 60 * 1000,
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'development',
+            secure: process.env.NODE_ENV === 'production',
             sameSite: 'strict',
             path: '/',
         });
-        return res.status(201).json(user);
+        return res.status(200).json(user);
     } catch (error) {
         console.log('User creates failed', error);
         return res.status(500).json({ error: 'Internal server error' });

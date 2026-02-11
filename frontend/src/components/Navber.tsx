@@ -57,7 +57,7 @@ const Navber = ({ navType="chat" }: NavberProps) => {
                         : findGroup?.groupsAvater || defaultGroupAvater
                     )}
                     className={cn(
-                        'w-full duration-200 opacity-0',
+                        'w-full h-full duration-200 opacity-0',
                         avaterLoaded && 'opacity-100',
                     )}
                     onLoad={() => setAvaterLoaded(true)}

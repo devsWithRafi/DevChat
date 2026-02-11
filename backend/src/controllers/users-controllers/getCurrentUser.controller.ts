@@ -10,7 +10,7 @@ export const getCurrentUser = async (req: Request, res: Response) => {
     });
 
     if (!users) {
-        res.status(500).json({ error: 'An error occoured!' });
+       return res.status(500).json({ error: 'An error occoured!' });
     }
 
     return res.json(users);

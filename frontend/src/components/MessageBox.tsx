@@ -61,7 +61,7 @@ const MessageBox: React.FC<MessageBoxProps> = ({ message, ...props }) => {
                     )}
                 >
                     <div className="bg-zinc-800 h-7 w-7 max-[767px]:w-5 max-[767px]:h-5 rounded-full overflow-hidden">
-                        <img src={messageSenderAvater} className="w-full" />
+                        <img src={messageSenderAvater} className="w-full h-full" />
                     </div>
                     <p className="text-xs text-left text-zinc-500">
                         {formateTimes(message.createdAt)}

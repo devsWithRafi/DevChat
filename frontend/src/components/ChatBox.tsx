@@ -1,6 +1,6 @@
 import { RiSendPlaneLine } from 'react-icons/ri';
 import { LuImage } from 'react-icons/lu';
-import { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import { RxCross2 } from 'react-icons/rx';
 import Navber from './Navber';
 import { cn } from '../lib/utils';
@@ -19,7 +19,10 @@ const ChatBox = () => {
 
     const sendButtonDesabled = !imageFile && !textMsg;
 
-    const handleSend = async () => {
+    const handleSend = async (e: FormEvent<HTMLFormElement>) => {
+
+        e.preventDefault()
+        
         if (!selectedUserId) {
             toast.error('Please select user for sending message!');
             return;
@@ -50,7 +53,8 @@ const ChatBox = () => {
             {/* MESSAGE BOX */}
             <AllMessages />
             <section className="absolute bottom-0 left-0 right-0 p-5 max-[767px]:p-2 flex flex-col gap-3">
-                <section
+                <form
+                    onSubmit={handleSend}
                     className={cn(
                         'w-full flex items-center justify-between gap-3',
                         imageFile && 'items-end',
@@ -107,8 +111,7 @@ const ChatBox = () => {
                         }
                     />
                     <button
-                        type="button"
-                        onClick={handleSend}
+                        type="submit"
                         className={cn(
                             'min-w-11 h-11 cursor-pointer rounded-full flex items-center justify-center bg-gradient-to-r from-violet-500 to-purple-500 max-[767px]:min-w-8 max-[767px]:h-8',
                             sendButtonDesabled &&
@@ -123,7 +126,7 @@ const ChatBox = () => {
                             <Spinner className="border-2 border-zinc-400 border-t-white" />
                         )}
                     </button>
-                </section>
+                </form>
             </section>
         </section>
     );

@@ -1,6 +1,6 @@
 import { RiSendPlaneLine } from 'react-icons/ri';
 import { LuImage } from 'react-icons/lu';
-import { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import { RxCross2 } from 'react-icons/rx';
 import Navber from './Navber';
 import { cn } from '../lib/utils';
@@ -35,7 +35,9 @@ const GroupChatBox = () => {
         (m) => m.id === currentUser?.id,
     );
 
-    const handleSend = async () => {
+    const handleSend = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+
         if (!selectedGroupId) {
             return toast.error('Please select a group for sending message!');
         }
@@ -88,7 +90,8 @@ const GroupChatBox = () => {
             {/* message input */}
             <section className="absolute bottom-0 left-0 right-0 p-5 flex flex-col gap-3 max-[767px]:p-3">
                 {isUserInGroup ? (
-                    <section
+                    <form
+                        onSubmit={handleSend}
                         className={cn(
                             'w-full flex items-center justify-between gap-3',
                             imageFile && 'items-end',
@@ -147,8 +150,7 @@ const GroupChatBox = () => {
                             }
                         />
                         <button
-                            type="button"
-                            onClick={handleSend}
+                            type="submit"
                             className={cn(
                                 'min-w-11 h-11 cursor-pointer rounded-full flex items-center justify-center bg-gradient-to-r from-violet-500 to-purple-500 max-[767px]:min-w-8 max-[767px]:h-8',
                                 sendButtonDesabled &&
@@ -163,9 +165,11 @@ const GroupChatBox = () => {
                                 <Spinner className="border-2 border-zinc-400 border-t-white" />
                             )}
                         </button>
-                    </section>
+                    </form>
                 ) : (
-                    <button onClick={handleJoinGroup}
+                    <button 
+                        type='button'
+                        onClick={handleJoinGroup}
                         className="w-full rounded-full bg-gradient-to-r from-slate-500 to-slate-800
                     p-2.5 cursor-pointer text-sm flex items-center justify-center"
                     >
