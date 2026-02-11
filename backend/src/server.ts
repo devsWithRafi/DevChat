@@ -1,15 +1,15 @@
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import dotenv from 'dotenv';
 import { createServer } from 'http';
 import { CLIENT_URL, PORT } from './config/ENV.js';
 import userRoutes from './routes/userRoutes.js';
 import messageRoutes from './routes/messageRoutes.js';
 import { initSocket } from './socket/socket.js';
 import groupMsgRoutes from './routes/groupMsgRoutes.js';
+// import dotenv from 'dotenv';
 
-dotenv.config();
+// dotenv.config();
 
 const app = express();
 const server = createServer(app);
