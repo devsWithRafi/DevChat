@@ -9,9 +9,9 @@ import useCurrentUser from '../../hooks/useCurrentUser';
 import { MdOutlineCameraAlt } from 'react-icons/md';
 import defaultAvater from '../../assets/default-avater/default-male-avater.png';
 import useEditProfileInfo from '../../hooks/useEditProfileInfo';
-import toast from 'react-hot-toast';
 import Spinner from '../ui/Spinner';
 import { cn } from '../../lib/utils';
+import { toast } from 'sonner';
 
 interface EditProfileModalProps {
   setOnEditClick: Dispatch<SetStateAction<boolean>>;

@@ -1,3 +1,4 @@
+import { getToken } from '@clerk/react';
 import axios from 'axios';
 import { useState } from 'react';
 
@@ -11,9 +12,16 @@ const useAddNewMemberIntoGroup = () => {
     try {
       setLoading(true);
       setError(null);
+      const token = await getToken();
 
       const res = await axios.put(
         `${serverUrl}/api/group/add-new-member/${groupId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
       );
 
       if (res.status === 200) {
