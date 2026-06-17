@@ -19,7 +19,7 @@ createRoot(document.getElementById('root')!).render(
     <SocketProvider>
       <ClerkProvider
         publishableKey={PUBLISHABLE_KEY}
-        afterSignOutUrl="/login"
+        afterSignOutUrl="/sign-in"
         signInUrl="/sign-in"
         signUpUrl="/sign-up"
       >
