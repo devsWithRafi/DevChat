@@ -15,8 +15,6 @@ const app = express();
 const server = createServer(app);
 export const io = initSocket(server);
 
-app.use('/api/user', webhookRouter); // before -> app.use(express.json());
-
 app.use(
   cors({
     origin: ENV.CLIENT_URL,
@@ -25,6 +23,9 @@ app.use(
     allowedHeaders: ['Content-Type', 'Authorization'],
   }),
 );
+
+app.use('/api/user', webhookRouter); // before -> app.use(express.json());
+
 app.use(cookieParser());
 app.use(express.json());
 app.use(clerkMiddleware({}));
