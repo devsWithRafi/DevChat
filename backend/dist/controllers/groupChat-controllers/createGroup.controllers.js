@@ -3,8 +3,8 @@ import { uploadImageToCloudinary } from '../../helper/uploadImageToCloudinary.js
 export const createGroup = async (req, res) => {
     const { name, membersIds, bio } = req.body || {};
     const groupAvaterFile = req.file;
-    const currentUser = req.user;
-    if (!currentUser) {
+    const authUserId = req.userId;
+    if (!authUserId) {
         return res.status(401).json({ error: 'Unauthorized!' });
     }
     if (!name || !membersIds || membersIds.length < 2) {
@@ -17,11 +17,11 @@ export const createGroup = async (req, res) => {
     });
     const groupData = {
         name,
-        groupAdminId: currentUser.id,
+        groupAdminId: authUserId,
         members: {
             connect: [
                 ...validateMembers.map((m) => ({ id: m.id })),
-                { id: currentUser.id },
+                { id: authUserId },
             ],
         },
         bio,

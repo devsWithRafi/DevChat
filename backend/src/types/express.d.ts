@@ -1,9 +1,11 @@
-import type { AuthUserType } from './AuthUser.js';
+import '@clerk/express';
 
 declare global {
-    namespace Express {
-        interface Request {
-            user?: AuthUserType;
-        }
+  namespace Express {
+    interface Request {
+      userId: string | null;
     }
+  }
 }
+
+export {};

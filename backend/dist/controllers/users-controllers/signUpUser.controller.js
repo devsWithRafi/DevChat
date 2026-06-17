@@ -1,44 +1,34 @@
+import { Webhook } from 'svix';
+import { ENV } from '../../config/ENV.js';
 import { prisma } from '../../lib/prisma.js';
-import { HashPassword } from '../../helper/BcryptHelper.js';
-import { GenarateJwtToken } from '../../helper/JwtHelper.js';
-// SIGN UP USER
 export const signUpUser = async (req, res) => {
-    const { email, password, name } = req.body;
-    if (!email || !password || !name) {
-        return res.status(400).json({ error: 'All feilds are required!' });
-    }
-    const isUserExist = await prisma.user.findUnique({ where: { email } });
-    if (isUserExist) {
-        return res.status(400).json({ error: 'User already exist!' });
-    }
     try {
-        const hassedPass = await HashPassword(password);
-        const user = await prisma.user.create({
-            data: {
-                name,
-                email,
-                password: hassedPass,
-            },
-        });
-        if (!user) {
-            return res.status(400).json({ error: 'An error occurred!' });
+        const wh = new Webhook(ENV.CLERK_WEBHOOK_KEY);
+        const evt = wh.verify(req.body, req.headers);
+        if (evt.type === 'user.created') {
+            const { id, email_addresses, first_name, last_name, image_url } = evt.data;
+            const primaryEmail = email_addresses[0]?.email_address;
+            if (!primaryEmail) {
+                return res.status(400).json({ error: 'No email found' });
+            }
+            const user = await prisma.user.create({
+                data: {
+                    id: id,
+                    email: primaryEmail,
+                    name: `${first_name} ${last_name}`.trim(),
+                    avatar: image_url,
+                },
+            });
+            console.log('User created:', user);
+            return res.status(200).json({ success: true, user });
         }
-        const token = await GenarateJwtToken({
-            email: user.email,
-            id: user.id,
-        });
-        res.cookie('token', token, {
-            maxAge: 7 * 24 * 60 * 60 * 1000,
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'strict',
-            path: '/',
-        });
-        return res.status(200).json(user);
     }
     catch (error) {
-        console.log('User creates failed', error);
-        return res.status(500).json({ error: 'Internal server error' });
+        console.error('Webhook error:', error);
+        return res.status(200).json({
+            success: false,
+            message: error instanceof Error ? error.message : 'Unknown error',
+        });
     }
 };
 //# sourceMappingURL=signUpUser.controller.js.map

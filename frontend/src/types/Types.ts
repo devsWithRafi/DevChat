@@ -3,8 +3,8 @@ export interface UserType {
     name: string;
     bio: string;
     email: string;
-    avater: string | null;
-    avater_public_id: string | null;
+    avatar: string | null;
+    avatar_public_id: string | null;
     createdAt: string | Date;
 }
 

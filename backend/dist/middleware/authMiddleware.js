@@ -1,12 +1,11 @@
-import { VerifyJwtToken } from '../helper/JwtHelper.js';
+import { getAuth } from '@clerk/express';
 export const authMiddleware = async (req, res, next) => {
     try {
-        const token = req.cookies.token;
-        if (!token) {
-            return res.status(401).json({ error: 'Unauthorized' });
+        const { isAuthenticated, userId } = getAuth(req);
+        if (!isAuthenticated) {
+            return res.status(401).json({ error: 'User not authenticated' });
         }
-        const decoded = await VerifyJwtToken(token);
-        req.user = decoded;
+        req.userId = userId;
         next();
     }
     catch (error) {

@@ -1,11 +1,11 @@
 import { prisma } from '../../lib/prisma.js';
 export const addMemberToGroup = async (req, res) => {
     const groupId = req.params.groupId;
-    const currentUser = req.user;
+    const authUserId = req.userId;
     if (!groupId) {
         return res.status(400).json({ error: 'Group ID is required.' });
     }
-    if (!currentUser) {
+    if (!authUserId) {
         return res.status(401).json({ error: 'Unauthorized!' });
     }
     const findGroup = await prisma.group.findUnique({ where: { id: groupId } });
@@ -17,13 +17,15 @@ export const addMemberToGroup = async (req, res) => {
         data: {
             members: {
                 connect: {
-                    id: currentUser.id,
+                    id: authUserId,
                 },
             },
         },
     });
     if (updateGroup) {
-        return res.status(200).json({ success: 'You have successfully joined the group' });
+        return res
+            .status(200)
+            .json({ success: 'You have successfully joined the group' });
     }
     return res.status(500).json({ error: 'Failed to join the group!' });
 };

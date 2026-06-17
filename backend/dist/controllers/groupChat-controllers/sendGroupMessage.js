@@ -5,13 +5,11 @@ export const sendGroupMessage = async (req, res) => {
     const groupId = req.params.groupId;
     const { text } = req.body || {};
     const imageFile = req.file;
-    const currentUser = req.user;
+    const authUserId = req.userId;
     if (!text && !imageFile) {
-        return res
-            .status(400)
-            .json({ error: 'Group Message cannot be empty!' });
+        return res.status(400).json({ error: 'Group Message cannot be empty!' });
     }
-    if (!currentUser) {
+    if (!authUserId) {
         return res.status(401).json({ error: 'Unauthorized!' });
     }
     if (!groupId) {
@@ -24,7 +22,7 @@ export const sendGroupMessage = async (req, res) => {
     if (!isGroupExist) {
         return res.status(404).json({ error: 'Group not found' });
     }
-    const isUserInThisGroup = isGroupExist.members.find((m) => m.id === currentUser.id);
+    const isUserInThisGroup = isGroupExist.members.find((m) => m.id === authUserId);
     if (!isUserInThisGroup) {
         return res.status(403).json({
             error: 'You are not allow to send message in this group!',
@@ -42,7 +40,7 @@ export const sendGroupMessage = async (req, res) => {
     // CREATE GROUP MESSAGE
     const newGroupMessage = await prisma.message.create({
         data: {
-            senderId: currentUser.id,
+            senderId: authUserId,
             text: messages.text,
             image: messages.image,
             groupId: groupId,

@@ -1,8 +1,8 @@
 import { prisma } from '../../lib/prisma.js';
 export const deleteGroup = async (req, res) => {
     const groupId = req.params.groupId;
-    const currentUser = req.user;
-    if (!currentUser) {
+    const authUserId = req.userId;
+    if (!authUserId) {
         return res.status(401).json({ error: 'Unauthorized!' });
     }
     const isGroupExist = await prisma.group.findUnique({
@@ -11,7 +11,7 @@ export const deleteGroup = async (req, res) => {
     if (!isGroupExist) {
         return res.status(404).json({ error: 'Group not found!' });
     }
-    if (isGroupExist.groupAdminId !== currentUser.id) {
+    if (isGroupExist.groupAdminId !== authUserId) {
         return res.status(400).json({ error: 'Access denied!' });
     }
     try {

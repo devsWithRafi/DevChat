@@ -1,15 +1,15 @@
 import { prisma } from '../../lib/prisma.js';
 export const getConversations = async (req, res) => {
-    const currentUser = req.user;
+    const authUserId = req.userId;
     const othersId = req.params.othersId;
-    if (!currentUser) {
+    if (!authUserId) {
         return res.status(401).json({ error: 'Unauthorized!' });
     }
     const conversation = await prisma.conversation.findFirst({
         where: {
             OR: [
-                { senderId: currentUser.id, receiverId: othersId },
-                { senderId: othersId, receiverId: currentUser.id },
+                { senderId: authUserId, receiverId: othersId },
+                { senderId: othersId, receiverId: authUserId },
             ],
         },
         include: {

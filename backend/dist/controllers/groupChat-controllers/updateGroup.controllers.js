@@ -4,11 +4,11 @@ export const updateGroup = async (req, res) => {
     const groupId = req.params.groupId;
     const { name, membersIds, bio } = req.body || {};
     const groupAvaterFile = req.file;
-    const currentUser = req.user;
+    const authUserId = req.userId;
     if (!name || !membersIds || membersIds.length < 2) {
         return res.status(400).json({ error: 'Invalid group data' });
     }
-    if (!currentUser) {
+    if (!authUserId) {
         return res.status(401).json({ error: 'Unauthorized!' });
     }
     const validateMembers = await prisma.user.findMany({
@@ -22,16 +22,16 @@ export const updateGroup = async (req, res) => {
     if (!isGroupExist) {
         return res.status(404).json({ error: 'Group not found!' });
     }
-    if (isGroupExist.groupAdminId !== currentUser.id) {
+    if (isGroupExist.groupAdminId !== authUserId) {
         return res.status(400).json({ error: 'Access denied!' });
     }
     const groupData = {
         name,
-        groupAdminId: currentUser.id,
+        groupAdminId: authUserId,
         members: {
             set: [
                 ...validateMembers.map((m) => ({ id: m.id })),
-                { id: currentUser.id }, // always include admin
+                { id: authUserId }, // always include admin
             ],
         },
         bio,

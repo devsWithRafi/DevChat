@@ -1,7 +1,7 @@
 import { uploadImageToCloudinary } from '../../helper/uploadImageToCloudinary.js';
 import { prisma } from '../../lib/prisma.js';
 export const editUserInfo = async (req, res) => {
-    const authUser = req.user;
+    const authUserId = req.userId;
     const { name, bio } = req.body || {};
     const avaterFile = req.file;
     if (!name || !bio) {
@@ -9,18 +9,18 @@ export const editUserInfo = async (req, res) => {
             .status(400)
             .json({ error: 'All profile info feilds are required!' });
     }
-    if (!authUser) {
+    if (!authUserId) {
         return res.status(401).json({ error: 'Unauthorized!' });
     }
     const updatedData = { name, bio };
     const currentUser = await prisma.user.findUnique({
-        where: { id: authUser.id },
+        where: { id: authUserId },
     });
     if (!currentUser) {
         return res.status(400).json({ error: 'An Error Occurred!' });
     }
     if (avaterFile) {
-        const { secure_url, public_id } = await uploadImageToCloudinary(avaterFile.buffer, currentUser?.avater_public_id || undefined);
+        const { secure_url, public_id } = await uploadImageToCloudinary(avaterFile.buffer, currentUser?.avatar_public_id || undefined);
         updatedData.avater = secure_url;
         updatedData.avater_public_id = public_id;
     }

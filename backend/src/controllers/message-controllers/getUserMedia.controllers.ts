@@ -2,30 +2,30 @@ import type { Request, Response } from 'express';
 import { prisma } from '../../lib/prisma.js';
 
 export const getUserMedia = async (req: Request, res: Response) => {
-    const othersId = req.params.userId as string;
-    const currentUser = req.user;
+  const othersId = req.params.userId as string;
+  const authUserId = req.userId;
 
-    if (!currentUser) {
-        return res.status(401).json({ error: 'Unauthorized!' });
-    }
+  if (!authUserId) {
+    return res.status(401).json({ error: 'Unauthorized!' });
+  }
 
-    const conversation = await prisma.conversation.findFirst({
+  const conversation = await prisma.conversation.findFirst({
+    where: {
+      OR: [
+        { senderId: authUserId, receiverId: othersId },
+        { senderId: othersId, receiverId: authUserId },
+      ],
+    },
+    select: {
+      messages: {
         where: {
-            OR: [
-                { senderId: currentUser.id, receiverId: othersId },
-                { senderId: othersId, receiverId: currentUser.id },
-            ],
+          image: {
+            not: '',
+          },
         },
-        select: {
-            messages: {
-                where: {
-                    image: {
-                        not: '',
-                    },
-                },
-            },
-        },
-    });
+      },
+    },
+  });
 
-    return res.status(200).json(conversation);
+  return res.status(200).json(conversation);
 };

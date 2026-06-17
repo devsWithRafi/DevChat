@@ -6,11 +6,11 @@ export const sendMessage = async (req, res) => {
     const receiverId = req.params.id;
     const { text } = req.body || {};
     const imageFile = req.file;
-    const currentUser = req.user;
+    const authUserId = req.userId;
     if (!text && !imageFile) {
         return res.status(400).json({ error: 'Message cannot be empty!' });
     }
-    if (!currentUser) {
+    if (!authUserId) {
         return res.status(401).json({ error: 'Unauthorized!' });
     }
     if (!receiverId) {
@@ -35,8 +35,8 @@ export const sendMessage = async (req, res) => {
     const conversation = await prisma.conversation.findFirst({
         where: {
             OR: [
-                { senderId: currentUser.id, receiverId: receiverId },
-                { senderId: receiverId, receiverId: currentUser.id },
+                { senderId: authUserId, receiverId: receiverId },
+                { senderId: receiverId, receiverId: authUserId },
             ],
         },
     });
@@ -44,14 +44,14 @@ export const sendMessage = async (req, res) => {
     const newConversation = conversation ??
         (await prisma.conversation.create({
             data: {
-                senderId: currentUser.id,
+                senderId: authUserId,
                 receiverId: receiverId,
             },
         }));
     // CREATE MESSAGES
     const newMessage = await prisma.message.create({
         data: {
-            senderId: currentUser.id,
+            senderId: authUserId,
             receiverId: receiverId,
             text: messages.text,
             image: messages.image,
@@ -63,7 +63,7 @@ export const sendMessage = async (req, res) => {
         return res.json({ error: 'Something went wrong - please try again!' });
     }
     // socket io room
-    const roomId = getPrivateRoomId(currentUser.id, receiverId);
+    const roomId = getPrivateRoomId(authUserId, receiverId);
     io.to(roomId).emit('newMessage', newMessage);
     return res.json(newMessage);
 };

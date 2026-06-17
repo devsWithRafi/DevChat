@@ -1,12 +1,12 @@
 import { Server } from 'socket.io';
 import http from 'http';
-import { CLIENT_URL } from '../config/ENV.js';
 import getPrivateRoomId from '../helper/getPrivateRoomId.js';
 import { JoinSocketGroup } from './joinGroup.js';
+import { ENV } from '../config/ENV.js';
 export const initSocket = (server) => {
     const io = new Server(server, {
         cors: {
-            origin: CLIENT_URL,
+            origin: ENV.CLIENT_URL,
             methods: ['GET', 'POST'],
             credentials: true,
         },
