@@ -11,6 +11,7 @@ export const authMiddleware = async (
     if (!isAuthenticated) {
       return res.status(401).json({ error: 'User not authenticated' });
     }
+    console.log(userId)
     req.userId = userId;
     next();
   } catch (error) {
