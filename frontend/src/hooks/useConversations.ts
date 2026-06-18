@@ -36,7 +36,7 @@ const useConversations = () => {
         },
       );
 
-      if (res.data.success) {
+      if (res.status === 200) {
         dispatch(fetchConversationSuccess(res.data));
       } else {
         throw new Error(res.data.message || 'Failed to fetch conversations!');
