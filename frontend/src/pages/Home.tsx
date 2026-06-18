@@ -31,7 +31,9 @@ const HomePage = () => {
             <ProfileSidebar />
           </>
         ) : (
-          <div className="w-full bg-muted flex flex-col items-center justify-center max-[767px]:hidden">
+          <div className={cn("w-full bg-muted flex flex-col items-center justify-center h-full",
+              user && 'max-[767px]:hidden'
+          )}>
             <img src={logoWhite} alt="" className="w-70 dark:block hidden pointer-events-none select-none" />
             <img src={logoBlack} alt="" className="w-70 dark:hidden block pointer-events-none select-none" />
             <h2 className="font-medium text-muted-foreground">
