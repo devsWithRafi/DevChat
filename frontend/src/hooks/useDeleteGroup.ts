@@ -26,7 +26,7 @@ const useDeletingGroup = () => {
         },
       );
 
-      if (res.status === 200) {
+      if (res.data.success) {
         setIsDeleting(false);
         return true;
       } else {

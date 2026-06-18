@@ -43,9 +43,8 @@ const useUpdateGroup = () => {
           },
         },
       );
-      console.log(res.data);
 
-      if (res.status === 200) {
+      if (res.data.success) {
         setIsUpdating(false);
         return true;
       } else {

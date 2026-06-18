@@ -42,7 +42,7 @@ const useCreateGroup = () => {
         },
       );
 
-      if (res.status === 200) {
+      if (res.data.success) {
         setIsCreating(false);
         return true;
       } else {

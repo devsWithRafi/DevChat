@@ -40,7 +40,7 @@ const useEditProfileInfo = () => {
         },
       );
 
-      if (res.status === 200) {
+      if (res.data.success) {
         setLoading(false);
         return true;
       } else {

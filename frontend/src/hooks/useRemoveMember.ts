@@ -22,7 +22,7 @@ const useRemoveMemberFromGroup = () => {
         },
       );
 
-      if (res.status === 200) return true;
+      if (res.data.success) return true;
       else return false;
     } catch (error: any) {
       setError(error.response.data.error || 'An error occoured!');

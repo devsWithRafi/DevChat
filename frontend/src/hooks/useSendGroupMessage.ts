@@ -36,7 +36,7 @@ const useSendGroupMessage = () => {
         },
       );
 
-      if (res.status === 200) {
+      if (res.data.success) {
         return true;
       } else {
         setIsSending(false);
