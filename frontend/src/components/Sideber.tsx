@@ -197,7 +197,7 @@ const Sideber = ({ className }: { className?: string }) => {
         </div>
       </section>
       {onCreateGroup && (
-        <CreateGroupModal onClose={setOnCreateGroup} open={onCreateGroup} />
+        <CreateGroupModal onClose={setOnCreateGroup} />
       )}
     </>
   );

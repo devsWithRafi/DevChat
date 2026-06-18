@@ -16,10 +16,9 @@ import useFetchGroups from '@/hooks/useFetchGroups';
 
 interface CreateGroupModalProps {
   onClose: Dispatch<SetStateAction<boolean>>;
-  open?: boolean;
 }
 
-const CreateGroupModal = ({ onClose, open }: CreateGroupModalProps) => {
+const CreateGroupModal = ({ onClose }: CreateGroupModalProps) => {
   const { users } = useFetchUsers();
   const [selectedUsrsId, setSelectedUsersId] = useState<string[]>([]);
   const [searchInput, setSearchInput] = useState<string>('');
