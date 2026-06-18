@@ -6,7 +6,7 @@ export const getUserMedia = async (req: Request, res: Response) => {
   const authUserId = req.userId;
 
   if (!authUserId) {
-    return res.status(401).json({ error: 'Unauthorized!' });
+    return res.status(401).json({ success: false, message: 'Unauthorized!' });
   }
 
   const conversation = await prisma.conversation.findFirst({

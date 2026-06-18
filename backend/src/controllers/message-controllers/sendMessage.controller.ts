@@ -11,22 +11,28 @@ export const sendMessage = async (req: Request, res: Response) => {
   const authUserId = req.userId;
 
   if (!text && !imageFile) {
-    return res.status(400).json({ error: 'Message cannot be empty!' });
+    return res
+      .status(400)
+      .json({ success: false, message: 'Message cannot be empty!' });
   }
 
   if (!authUserId) {
-    return res.status(401).json({ error: 'Unauthorized!' });
+    return res.status(401).json({ success: false, message: 'Unauthorized!' });
   }
 
   if (!receiverId) {
-    return res.status(400).json({ error: 'Reciver id is required!' });
+    return res
+      .status(400)
+      .json({ success: false, message: 'Reciver id is required!' });
   }
   const isReceiverExist = await prisma.user.findUnique({
     where: { id: receiverId },
   });
 
   if (!isReceiverExist) {
-    return res.status(404).json({ error: 'Receiver not found' });
+    return res
+      .status(404)
+      .json({ success: false, message: 'Receiver not found' });
   }
   // messages
   const messages = { text: '', image: '' };
@@ -72,7 +78,10 @@ export const sendMessage = async (req: Request, res: Response) => {
   });
 
   if (!newMessage) {
-    return res.json({ error: 'Something went wrong - please try again!' });
+    return res.json({
+      success: false,
+      message: 'Something went wrong - please try again!',
+    });
   }
 
   // socket io room

@@ -8,11 +8,13 @@ export const createGroup = async (req: Request, res: Response) => {
   const authUserId = req.userId;
 
   if (!authUserId) {
-    return res.status(401).json({ error: 'Unauthorized!' });
+    return res.status(401).json({ success: false, message: 'Unauthorized!' });
   }
 
   if (!name || !membersIds || membersIds.length < 2) {
-    return res.status(400).json({ error: 'Invalid group data' });
+    return res
+      .status(400)
+      .json({ success: false, message: 'Invalid group data' });
   }
 
   const validateMembers = await prisma.user.findMany({
@@ -42,9 +44,13 @@ export const createGroup = async (req: Request, res: Response) => {
 
   try {
     await prisma.group.create({ data: groupData });
-    return res.status(200).json({ success: 'Group created successfully' });
+    return res
+      .status(200)
+      .json({ success: true, message: 'Group created successfully' });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ error: 'Failed to create group' });
+    return res
+      .status(500)
+      .json({ success: false, message: 'Failed to create group' });
   }
 };

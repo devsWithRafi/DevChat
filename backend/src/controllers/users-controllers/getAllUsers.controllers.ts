@@ -5,7 +5,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
   const userId = req.userId;
 
   if (!userId) {
-    return res.status(401).json({ error: 'Unauthorized!' });
+    return res.status(401).json({ success: false, message: 'Unauthorized!' });
   }
 
   const users = await prisma.user.findMany({
@@ -16,7 +16,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
   });
 
   if (!users) {
-    res.status(500).json({ error: 'An error occoured!' });
+    res.status(404).json({ success: false, message: 'User not found!' });
   }
   return res.status(200).json({
     success: true,

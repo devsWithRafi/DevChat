@@ -10,11 +10,14 @@ export const editUserInfo = async (req: Request, res: Response) => {
   if (!name || !bio) {
     return res
       .status(400)
-      .json({ error: 'All profile info feilds are required!' });
+      .json({
+        success: false,
+        message: 'All profile info feilds are required!',
+      });
   }
 
   if (!authUserId) {
-    return res.status(401).json({ error: 'Unauthorized!' });
+    return res.status(401).json({ success: false, message: 'Unauthorized!' });
   }
 
   const updatedData: { [key: string]: string } = { name, bio };
@@ -24,7 +27,9 @@ export const editUserInfo = async (req: Request, res: Response) => {
   });
 
   if (!currentUser) {
-    return res.status(400).json({ error: 'An Error Occurred!' });
+    return res
+      .status(401)
+      .json({ success: false, message: 'An Error Occurred!' });
   }
 
   if (avaterFile) {
@@ -41,5 +46,7 @@ export const editUserInfo = async (req: Request, res: Response) => {
     data: updatedData,
   });
 
-  return res.status(200).json({ success: 'Profile updated successful!' });
+  return res
+    .status(200)
+    .json({ success: true, message: 'Profile updated successful!' });
 };

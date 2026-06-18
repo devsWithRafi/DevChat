@@ -9,11 +9,13 @@ export const updateGroup = async (req: Request, res: Response) => {
   const authUserId = req.userId;
 
   if (!name || !membersIds || membersIds.length < 2) {
-    return res.status(400).json({ error: 'Invalid group data' });
+    return res
+      .status(400)
+      .json({ success: false, message: 'Invalid group data' });
   }
 
   if (!authUserId) {
-    return res.status(401).json({ error: 'Unauthorized!' });
+    return res.status(401).json({ success: false, message: 'Unauthorized!' });
   }
 
   const validateMembers = await prisma.user.findMany({
@@ -27,11 +29,13 @@ export const updateGroup = async (req: Request, res: Response) => {
   });
 
   if (!isGroupExist) {
-    return res.status(404).json({ error: 'Group not found!' });
+    return res
+      .status(404)
+      .json({ success: false, message: 'Group not found!' });
   }
 
   if (isGroupExist.groupAdminId !== authUserId) {
-    return res.status(400).json({ error: 'Access denied!' });
+    return res.status(400).json({ success: false, message: 'Access denied!' });
   }
 
   const groupData: any = {
@@ -59,9 +63,13 @@ export const updateGroup = async (req: Request, res: Response) => {
       where: { id: isGroupExist.id },
       data: groupData,
     });
-    return res.status(200).json({ success: 'Group updated successfully' });
+    return res
+      .status(200)
+      .json({ success: true, message: 'Group updated successfully' });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ error: 'Failed to update group' });
+    return res
+      .status(500)
+      .json({ success: false, message: 'Failed to update group' });
   }
 };

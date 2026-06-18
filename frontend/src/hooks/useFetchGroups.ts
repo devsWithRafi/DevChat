@@ -27,11 +27,13 @@ const useFetchGroups = () => {
         },
       });
 
-      if (res.status === 200) {
-        dispatch(groupFetchSuccess(res.data));
+      if (res.data.success) {
+        dispatch(groupFetchSuccess(res.data.data));
         return true;
       } else {
-        dispatch(groupFetchError(res.data.error || 'Failed to fetch groups!'));
+        dispatch(
+          groupFetchError(res.data.message || 'Failed to fetch groups!'),
+        );
         return false;
       }
     } catch (error: any) {

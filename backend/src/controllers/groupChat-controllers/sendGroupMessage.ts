@@ -10,15 +10,19 @@ export const sendGroupMessage = async (req: Request, res: Response) => {
   const authUserId = req.userId;
 
   if (!text && !imageFile) {
-    return res.status(400).json({ error: 'Group Message cannot be empty!' });
+    return res
+      .status(400)
+      .json({ success: false, message: 'Group Message cannot be empty!' });
   }
 
   if (!authUserId) {
-    return res.status(401).json({ error: 'Unauthorized!' });
+    return res.status(401).json({ success: false, message: 'Unauthorized!' });
   }
 
   if (!groupId) {
-    return res.status(400).json({ error: 'Group id is required!' });
+    return res
+      .status(400)
+      .json({ success: false, message: 'Group id is required!' });
   }
 
   const isGroupExist = await prisma.group.findUnique({
@@ -27,7 +31,7 @@ export const sendGroupMessage = async (req: Request, res: Response) => {
   });
 
   if (!isGroupExist) {
-    return res.status(404).json({ error: 'Group not found' });
+    return res.status(404).json({ success: false, message: 'Group not found' });
   }
 
   const isUserInThisGroup = isGroupExist.members.find(
@@ -36,7 +40,8 @@ export const sendGroupMessage = async (req: Request, res: Response) => {
 
   if (!isUserInThisGroup) {
     return res.status(403).json({
-      error: 'You are not allow to send message in this group!',
+      success: false,
+      message: 'You are not allow to send message in this group!',
     });
   }
 
@@ -63,7 +68,10 @@ export const sendGroupMessage = async (req: Request, res: Response) => {
   });
 
   if (!newGroupMessage) {
-    return res.json({ error: 'Something went wrong - please try again!' });
+    return res.json({
+      success: false,
+      message: 'Something went wrong - please try again!',
+    });
   }
 
   // EMIT SOCKET EVENT TO GROUP MEMBERS

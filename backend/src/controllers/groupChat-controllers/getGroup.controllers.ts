@@ -11,8 +11,13 @@ export const getGroup = async (req: Request, res: Response) => {
   });
 
   if (!groups || groups.length === 0) {
-    return res.status(404).json({ error: 'No Groups not found' });
+    return res
+      .status(404)
+      .json({ success: false, message: 'No Groups not found' });
   }
 
-  return res.status(200).json(groups);
+  return res.status(200).json({
+    success: true,
+    data: groups,
+  });
 };

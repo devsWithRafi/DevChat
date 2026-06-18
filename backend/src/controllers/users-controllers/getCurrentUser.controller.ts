@@ -5,7 +5,7 @@ export const getCurrentUser = async (req: Request, res: Response) => {
   const userId = req.userId;
 
   if (!userId) {
-    return res.status(401).json({ error: 'Unauthorized!' });
+    return res.status(401).json({ success: false, message: 'Unauthorized!' });
   }
 
   const users = await prisma.user.findUnique({
@@ -14,7 +14,9 @@ export const getCurrentUser = async (req: Request, res: Response) => {
   });
 
   if (!users) {
-    return res.status(500).json({ error: 'An error occoured!' });
+    return res
+      .status(500)
+      .json({ success: false, message: 'An error occoured!' });
   }
 
   return res.json(users);
