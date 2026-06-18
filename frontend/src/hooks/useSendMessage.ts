@@ -36,7 +36,7 @@ const useSendMessage = () => {
         },
       );
 
-      if (res.data.success) {
+      if (res.status === 200) {
         return true;
       } else {
         setLoading(false);

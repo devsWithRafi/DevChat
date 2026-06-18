@@ -4,10 +4,10 @@ import { RxCross2 } from 'react-icons/rx';
 import Navber from './Navber';
 import { cn } from '../lib/utils';
 import useSendMessage from '../hooks/useSendMessage';
-import toast from 'react-hot-toast';
 import AllMessages from './AllMessages';
 import { useSearchParams } from 'react-router';
 import { Button } from '@/@/components/ui/button';
+import { toast } from 'sonner';
 
 const ChatBox = () => {
   const [imageFile, setImageFile] = useState<File | null>(null);
