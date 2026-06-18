@@ -2,13 +2,13 @@
 
 A modern, feature-rich real-time chat application built with the **PERN** stack
 
-Live Demo: [Visit here](https://devchat-frontend-khaki.vercel.app/)
+Live Demo: [Visit here](https://dev-chat-three-theta.vercel.app)
 
 <div style='display:flex; flex-wrap:wrap; gap:10px'>
-    <img src="https://i.ibb.co.com/pvmGwLYh/devchat-3.jpg" width="350" height="200"/>
-    <img src="https://i.ibb.co.com/GvThykwh/devchat-2.jpg" width="350" height="200"/>
-    <img src="https://i.ibb.co.com/xKK4Cskn/devchat-4.jpg" width="350" height="200"/>
-    <img src="https://i.ibb.co.com/08xksby/devchat-1.jpg" width="350" height="200"/>
+    <img src="https://i.ibb.co.com/1twM9PDT/download.png" width="350" height="200"/>
+    <img src="https://i.ibb.co.com/kg72fRRZ/New-Project.jpg" width="350" height="200"/>
+    <img src="https://i.ibb.co.com/JwrPMVzd/Whats-App-Image-2026-06-18-at-8-36-39-PM.jpg" width="350" height="200"/>
+    <img src="https://i.ibb.co.com/nN5f7vQZ/Whats-App-Image-2026-06-18-at-8-46-47-PM.jpg" width="350" height="200"/>
 </div>
 
 ## 🌟 Features
@@ -55,6 +55,7 @@ Live Demo: [Visit here](https://devchat-frontend-khaki.vercel.app/)
     "httpClient": "Axios",
     "realtime": "Socket.IO Client",
     "uiComponents": "shadcn/heroui"
+    "authentication": "Clerk auth",
 }
 ```
 
@@ -81,6 +82,10 @@ Live Demo: [Visit here](https://devchat-frontend-khaki.vercel.app/)
       <td><strong>Socket.IO Client</strong></td>
       <td>Real-time bidirectional event-based communication</td>
     </tr>
+    <tr>
+      <td><strong>Clerk Auth</strong></td>
+      <td>User management and authentications</td>
+    </tr>
 </table>
 
 ### Backend
@@ -93,7 +98,7 @@ Live Demo: [Visit here](https://devchat-frontend-khaki.vercel.app/)
     "orm": "Prisma",
     "realtime": "Socket.IO",
     "authentication": "JWT",
-    "encryption": "BcryptJS",
+    "authentication": "Clerk auth",
     "fileUpload": "Multer",
     "cloudStorage": "Cloudinary"
 }
@@ -130,6 +135,10 @@ Live Demo: [Visit here](https://devchat-frontend-khaki.vercel.app/)
       <td><strong>Cloudinary</strong></td>
       <td>Cloud-based media management and delivery</td>
     </tr>
+    <tr>
+      <td><strong>Clerk Auth</strong></td>
+      <td>User management and authentications</td>
+    </tr>
 </table>
 
 ## 🚀 Installation
@@ -163,19 +172,23 @@ cp .env
 # Edit .env with your credentials
 ```
 
-#### Environment Variables:
+#### Backend Environment Variables:
 
 ```env
 PORT=4000
-JWT_SECRET="<your-secreet>"
 CLIENT_URL="http://localhost:5173"
 
 # cloudinary
-CLOUDINARY_CLOUD_NAME="<your-cloud-name>"
-CLOUDINARY_API_SECRET="<your-api-secreet>"
-CLOUDINARY_API_KEY="your-api-key"
+CLOUDINARY_CLOUD_NAME=<your-cloudinary-cloud-name>
+CLOUDINARY_API_SECRET=<your-cloudinary-api-secret>
+CLOUDINARY_API_KEY=<your-cloudinary-api-key>
 
-# Database Url
+# clerk (auth)
+CLERK_PUBLISHABLE_KEY=<Your-clerk-publish-key>
+CLERK_SECRET_KEY=<Your-clerk-secret-key>
+CLERK_WEBHOOK_KEY=<Your-clerk-webhook-key>
+
+# Database URL
 DATABASE_URL="postgresql://<username>:<password>@localhost:5432/<database-name>"
 ```
 
@@ -207,10 +220,16 @@ cp .env
 # Edit .env with your backend URL
 ```
 
-#### Environment Variables:
+#### Frontend Environment Variables:
 
 ```env
 VITE_SERVER_URL="http://localhost:4000"
+
+# clerk (auth)
+CLERK_PUBLISHABLE_KEY=<Your-clerk-publish-key>
+CLERK_SECRET_KEY=<Your-clerk-secret-key>
+CLERK_SIGN_IN_URL=/sign-in
+CLERK_SIGN_UP_URL=/sign-up
 ```
 
 ```bash
@@ -220,27 +239,6 @@ npm run dev
 pnpm dev
 ```
 
-## Demo Accounts - You can use for test
-
-```env
-Email: rafi@gmail.com
-Password: saiful999
-
-Email: mamun@gmail.com
-Password: mamun999
-
-Email: sadia@gmail.com
-Password: sadia999
-
-Email: ashiq@gmail.com
-Password: ashiq999
-
-Email: monzil@gmail.com
-Password: monzil999
-
-Email: ayesha@gmail.com
-Password: ayesha999
-```
 
 ## 👨‍💻 Author
 
